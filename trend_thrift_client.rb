@@ -15,15 +15,21 @@ begin
   transport.open
 
   # while true do
-  Benchmark.bm(10) do |x|
-    x.report("Getting current trends from z server"){
-      puts
-      client.currentTrends.each do |trend|
-        puts "Trend #{trend.term} has score #{trend.termScore}"
-      end
-    }
+  # Benchmark.bm(10) do |x|
+  #   x.report("Getting current trends from z server"){
+  #     puts
+  #     client.currentTrends.each do |trend|
+  #       puts "Trend #{trend.term} has score #{trend.termScore}"
+  #     end
+  #   }
+  # end
+
+  client.currentTrendsDefault.each do |trend|
+    puts "Trend #{trend.term} has score #{trend.termScore}"
   end
 
+  puts "sending a phrase"
+  client.analyzeAndStoreMorphemes("大谷さん、これからもよろしくお願いします", true, true)
 rescue
   puts $!
 end
